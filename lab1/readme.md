@@ -147,8 +147,13 @@ Self CPU time total: 1.765ms
 ```
 
 2.  网络分析，不同批大小结果比较
-实验结果可以看https://www.jianshu.com/p/20e512047459
+![python mnist.py --batch-size=1](https://upload-images.jianshu.io/upload_images/1016401-69ede9bf6302150a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/620)
+
+![ python mnist.py --batch-size=16](https://upload-images.jianshu.io/upload_images/1016401-1417a28874b0641a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/620)
+
+![python mnist.py --batch-size=32](https://upload-images.jianshu.io/upload_images/1016401-b3cb152b351fb2b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/620)
 
 
-完整代码：
-https://github.com/AlvinChe/microsoft-AI-System/tree/main/lab1
+
+实验报告：https://www.jianshu.com/p/20e512047459
+完整代码：https://github.com/AlvinChe/microsoft-AI-System/tree/main/lab1
