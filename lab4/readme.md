@@ -2,11 +2,13 @@
 地址： [microsoft](https://github.com/microsoft)/**[AI-System](https://github.com/microsoft/AI-System)**
 
 ---
+
 Lecture 4 
 [Computer architecture for Matrix computation](https://github.com/microsoft/AI-System/blob/main/docs/SystemforAI-4-Computer%20architecture%20for%20Matrix%20computation.pdf)
 
 Lab 4 
 [AllReduce implementation](https://github.com/microsoft/AI-System/blob/main/Labs/BasicLabs/Lab4/README.md)
+
 ---
 
 实验准备
@@ -38,6 +40,7 @@ Lab 4
 搞了一个晚上了，搞不定，明天再来看看
 
 ---
+
 2021-07-14
 今天试了掘金这篇文章，[Horovod安装](https://juejin.cn/post/6844904158508630023)
 >horovod编译的时候需要cpu版本和GPU版本的tensorflow，要确保环境中两者都安装了，不然会触发下载最新版本的tensorflow的操作（这个不确定什么原因，但是我自己安装的时候如果没有CPU版本就自动触发下载tensorflow-2.0版本，所以我都安装了再编译horovod，如果没有这种情况则直接编译即可）
@@ -108,7 +111,58 @@ horovod也要重新安装
 ![多卡，开心](https://upload-images.jianshu.io/upload_images/1016401-80bc9e8e7c5bf3e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
+2.2记录每个step的运行时间和正确率
+![ tensorboard --logdir /home/hmh/msr/lab4/log --host xx.xx.xx.xx ](https://upload-images.jianshu.io/upload_images/1016401-03c3c100cc903fbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+3. 理解Horovod的执行逻辑，利用Numpy实现float8(8bit), float16(16bit)编码方案的压缩/解压缩
+下载代码：``git clone https://github.com/horovod/horovod.git``
+
+改 ``/horovod/torch/compression.py ``文件
+直接看diff代码看不懂，
+利用``git apply --reject diff``直接修改代码，修改后是这样
+
+再修改mpi_ops.py
+
+epoch = 4
+
+运行[pytorch_mnist_compress.py](https://github.com/microsoft/AI-System/blob/main/Labs/BasicLabs/Lab4/pytorch_mnist_compress.py "pytorch_mnist_compress.py")
+
+horovod devide =2 
+real    0m41.528s
+user    1m9.444s
+sys     0m18.800s
+Average loss: 0.1087, Accuracy: 96.46%
+
+
+horovod devide =4
+第一次跑的时候，下载数据花了20分钟
+real    0m30.122s
+user    1m47.476s
+sys     0m29.316s
+ Average loss: 0.0888, Accuracy: 97.23%
+
+运行代码[pytorch_mnist_horovod.py](https://github.com/microsoft/AI-System/blob/main/Labs/BasicLabs/Lab4/pytorch_mnist_horovod.py "pytorch_mnist_horovod.py")
+horovod devide =2
+Average loss: 0.1098, Accuracy: 96.43%
+
+real    0m33.218s
+user    0m53.024s
+sys     0m16.020s
+
+horovod devide =4 
+real    0m24.417s
+user    1m28.068s
+sys     0m24.944s
+Average loss: 0.1092, Accuracy: 96.67%
+
+>重新build Horovod库
+
+不敢试，怕把环境搞崩掉
+
+---
+
+代码：[github](https://github.com/microsoft/AI-System/tree/main/Labs/BasicLabs/Lab4)
+笔记：[[Microsoft/AI-System]微软AI系统 Lecture4+Lab4](https://www.jianshu.com/p/74e6aaa81cc8)
 
 
 
