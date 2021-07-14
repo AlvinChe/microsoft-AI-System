@@ -79,7 +79,7 @@ writer = SummaryWriter('log') #建立一个保存数据用的东西
 
 如何利用tensorboard展示结果
 ```
-tensorboard --logfix /home/xxx/xx/log --port=210.xx.xx.xxx 
+tensorboard --logfix /home/xxx/xx/log --host=xxx.xx.xx.xxx 
 ```
 因为我的代码跑在服务器上，所以需要配置ip地址
 注意的是``--logfix``后面只要跟日志的地址就好，不要具体到内容，
