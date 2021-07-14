@@ -3,7 +3,8 @@
 地址： [microsoft](https://github.com/microsoft)/**[AI-System](https://github.com/microsoft/AI-System)**
 
 课程内容，讲座+实验
----
+
+
 
 Lecture1：[Introduction](https://github.com/microsoft/AI-System/blob/main/docs/SystemforAI-1-2-Introduction%20and%20System%20Perspective.pdf)
 
@@ -65,6 +66,7 @@ writer = SummaryWriter('log') #建立一个保存数据用的东西
     # model = Net().to(device) 
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 ```
+
 >4.继续修改样例代码，记录并保存训练时正确率和损失值，使用TensorBoard画出损失和正确率趋势图。
 
 ``writer.add_graph(model.to(device), images.to(device))``
@@ -79,7 +81,7 @@ writer = SummaryWriter('log') #建立一个保存数据用的东西
 
 如何利用tensorboard展示结果
 ```
-tensorboard --logfix /home/xxx/xx/log --host=xxx.xx.xx.xxx 
+tensorboard --logdir /home/xxx/xx/log --host=xxx.xx.xx.xxx 
 ```
 因为我的代码跑在服务器上，所以需要配置ip地址
 注意的是``--logfix``后面只要跟日志的地址就好，不要具体到内容，
