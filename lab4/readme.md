@@ -1,15 +1,22 @@
 2021-07-13
 地址： [microsoft](https://github.com/microsoft)/**[AI-System](https://github.com/microsoft/AI-System)**
 
----
 
-Lecture 4 
-[Computer architecture for Matrix computation](https://github.com/microsoft/AI-System/blob/main/docs/SystemforAI-4-Computer%20architecture%20for%20Matrix%20computation.pdf)
+
+Lecture5 [Distributed training algorithms](https://github.com/microsoft/AI-System/blob/main/docs/SystemforAI-5-DistributedAlgo.pdf)
+Data parallelism, model parallelism, distributed SGD
+Papers and systems: PipeDream
+
+Lecture6 [Distributed training systems](https://github.com/microsoft/AI-System/blob/main/docs/SystemforAI-6-DistributedSys.pdf)
+MPI, parameter servers, all-reduce, RDMA
+Papers and systems: Horovod
+
+
 
 Lab 4 
 [AllReduce implementation](https://github.com/microsoft/AI-System/blob/main/Labs/BasicLabs/Lab4/README.md)
 
----
+
 
 实验准备
 1. 安装openmpi 
@@ -110,7 +117,6 @@ horovod也要重新安装
 感动，多卡跑起来了，速度真的唰的一下就上来了
 ![多卡，开心](https://upload-images.jianshu.io/upload_images/1016401-80bc9e8e7c5bf3e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-
 2.2记录每个step的运行时间和正确率
 ![ tensorboard --logdir /home/hmh/msr/lab4/log --host xx.xx.xx.xx ](https://upload-images.jianshu.io/upload_images/1016401-03c3c100cc903fbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -155,15 +161,22 @@ user    1m28.068s
 sys     0m24.944s
 Average loss: 0.1092, Accuracy: 96.67%
 
->重新build Horovod库
+>4.修改Horovod库中代码，增加对float8(8bit), float16(16bit)格式的压缩
+>>修改 /horovod/torch/mpi_ops.py 文件，利用Horovod内嵌的AllGather通信和压缩接口，增 加对float8(8bit), float16(16bit)格式的压缩代码的调用。
+重新build Horovod库
 
-不敢试，怕把环境搞崩掉
+目前敢试，怕把环境搞崩掉
+
+
+>5.  修改MNIST样例代码，增加压缩功能。
+>6.  测试代码正确性，比较原始代码、数据并行、加入压缩算法三者的性能差别
+>7.  [选做项目] 利用C++/CUDA API实现更为高效的压缩/解压缩编码
+
 
 ---
 
 代码：[github](https://github.com/microsoft/AI-System/tree/main/Labs/BasicLabs/Lab4)
 笔记：[[Microsoft/AI-System]微软AI系统 Lecture4+Lab4](https://www.jianshu.com/p/74e6aaa81cc8)
-
 
 
 
